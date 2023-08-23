@@ -1,0 +1,12 @@
+@import url("./bootstrap.min.css");
+@import url("./aos.css");
+@import url("./all.min.css");
+@import url("./swiper-bundle.min.css");
+@import url("./style.css");
+
+.bc {
+  padding: 0px 5px;
+  font-weight: bold ;
+  color: #fff;
+  font-size: large;
+}
