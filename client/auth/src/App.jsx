@@ -7,6 +7,8 @@ import Loader from "./components/molecule/Loader";
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
 const ResetPwd = lazy(() => import("./pages/ResetPwd"));
+const Locked = lazy(() => import("./pages/Locked"));
+const Confirmed = lazy(() => import("./pages/Confirmed"));
 
 function App() {
   return (
@@ -35,6 +37,30 @@ function App() {
             element={
               <Suspense fallback={<Loader />}>
                 <ResetPwd />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/lockscreen"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Locked />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/verify"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Confirmed />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/forgot-password/sent"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Confirmed />
               </Suspense>
             }
           />
