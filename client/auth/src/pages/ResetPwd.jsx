@@ -1,8 +1,16 @@
 import PwdImg0 from "../assets/images/PwdImg0";
 import PwdImg1 from "../assets/images/PwdImg1";
 import { Link } from "../config/libs";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const ResetPwd = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <>
       <div className="auth-bg">
@@ -30,12 +38,17 @@ const ResetPwd = () => {
                                 className="form-control"
                                 id="floatingInput"
                                 placeholder="name@example.com"
+                                onChange={(e) => setEmail(e.target.value)}
                               />
                               <label for="floatingInput">Email</label>
                             </div>
                           </div>
                           <div className="text-center">
-                            <button className="btn btn-primary mt-3">
+                            <button
+                              onClick={onSubmit}
+                              disabled={email === "" || email.length < 3}
+                              className="btn btn-primary mt-3"
+                            >
                               Reset
                             </button>
                           </div>

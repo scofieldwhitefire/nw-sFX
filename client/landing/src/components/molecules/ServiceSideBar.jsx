@@ -3,13 +3,12 @@ import { useLocation, useParams } from "react-router-dom";
 import { Link } from "../../config/libs";
 import Social from "../atom/Social";
 
-const ServiceSideBar = ({ type = "services" }) => {
+const ServiceSideBar = ({ type = "services", func = null, p = null }) => {
   const location = useLocation();
-  const params = useParams()
+  const params = useParams();
   const [path] = useState(location.pathname);
   const [id] = useState(params.id);
 
-  
   return (
     <div className="col-lg-4 col-md-8  col-12">
       <div className="sidebar">
@@ -71,26 +70,46 @@ const ServiceSideBar = ({ type = "services" }) => {
                   ) : (
                     <ul>
                       <li
-                        className={`${path === "/investment" ? "active" : ""}`}
+                        onClick={() => func("General")}
+                        className={`${p === "General" ? "active" : ""}`}
+                        style={{ cursor: 'pointer'}}
                       >
-                        <Link to="/investment">General FAQs</Link>
+                        <span>General FAQs</span>
                       </li>
                       <li
-                        className={`${path === "/investment" ? "active" : ""}`}
+                        onClick={() => func("Investment")}
+                        className={`${p === "Investment" ? "active" : ""}`}
+                        style={{ cursor: 'pointer'}}
                       >
-                        <Link to="/investment">Investment FAQs</Link>
+                        <span>Investment FAQs</span>
                       </li>
-                      <li className={`${path === "/loan" ? "active" : ""}`}>
-                        <Link to="/loan">Loan FAQs</Link>
+                      <li
+                        onClick={() => func("Loan")}
+                        className={`${p === "Loan" ? "active" : ""}`}
+                        style={{ cursor: 'pointer'}}
+                      >
+                        <span>Loan FAQs</span>
                       </li>
-                      <li className={`${path === "/trading" ? "active" : ""}`}>
-                        <Link to="/trading">Trading FAQs</Link>
+                      <li
+                        onClick={() => func("Trading")}
+                        className={`${p === "Trading" ? "active" : ""}`}
+                        style={{ cursor: 'pointer'}}
+                      >
+                        <span>Trading FAQs</span>
                       </li>
-                      <li className={`${path === "/mining" ? "active" : ""}`}>
-                        <Link to="/mining">Mining FAQs</Link>
+                      <li
+                        onClick={() => func("Mining")}
+                        className={`${p === "Mining" ? "active" : ""}`}
+                        style={{ cursor: 'pointer'}}
+                      >
+                        <span>Mining FAQs</span>
                       </li>
-                      <li className={`${path === "/jackpot" ? "active" : ""}`}>
-                        <Link to="/jackpot">Jackpot FAQs</Link>
+                      <li
+                        onClick={() => func("Jackpot")}
+                        className={`${p === "Jackpot" ? "active" : ""}`}
+                        style={{ cursor: 'pointer'}}
+                      >
+                        <span>Jackpot FAQs</span>
                       </li>
                     </ul>
                   )}

@@ -28,7 +28,7 @@ const BreadcrumbWidget = ({list = []}) => {
           </li>
           {list.map((x, i) =>
             i + 1 === list.length ? (
-              <li className="breadcrumb-item active" aria-current="page">
+              <li key={`B${i}`} className="breadcrumb-item active" aria-current="page">
                 {x}
               </li>
             ) : (

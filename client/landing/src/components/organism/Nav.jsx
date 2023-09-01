@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Logo } from "../../assets/images/logo";
 import { Link } from "../../config/libs";
+import { DASHBOARD_URL, LOGIN_URL } from "../../config";
 
 const Nav = ({ header }) => {
+  const [login] = useState(!!0);
   return (
     <>
       {/* <!-- ===============>> Header section start here <<================= --> */}
@@ -56,15 +59,28 @@ const Nav = ({ header }) => {
               <div className="header-action">
                 <div className="menu-area">
                   <div className="header-btn">
-                    <Link to="signup.html" className="sfx-btn sfx-btn--2">
-                      <span>Login</span>
-                    </Link>
-                    <Link
-                      to="signup.html"
-                      className="sfx-btn sfx-btn--border sfx-btn--primary"
-                    >
-                      <span>Register</span>
-                    </Link>
+                    {login ? (
+                      <>
+                        <Link
+                          to={DASHBOARD_URL}
+                          className="sfx-btn sfx-btn--border sfx-btn--primary"
+                        >
+                          <span>My Dashboard</span>
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to={LOGIN_URL} className="sfx-btn sfx-btn--2">
+                          <span>Login</span>
+                        </Link>
+                        <Link
+                          to={`${LOGIN_URL}/register`}
+                          className="sfx-btn sfx-btn--border sfx-btn--primary"
+                        >
+                          <span>Register</span>
+                        </Link>
+                      </>
+                    )}
                   </div>
                   <div className="header-btn"></div>
 

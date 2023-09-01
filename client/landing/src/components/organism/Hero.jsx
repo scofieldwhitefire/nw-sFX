@@ -1,4 +1,6 @@
 import { Static } from "../../assets/images";
+import { LOGIN_URL } from "../../config";
+import { AI, Image, Link } from "../../config/libs";
 import Social from "../atom/Social";
 
 const Hero = () => {
@@ -8,8 +10,8 @@ const Hero = () => {
       <section className="banner banner--style1">
         <div className="banner__bg">
           <div className="banner__bg-element">
-            <img
-              src={Static.bg}
+            <AI
+              cldImg={Image("bg-1")}
               alt="section-bg-element"
               className="dark d-none d-lg-block"
             />
@@ -26,7 +28,7 @@ const Hero = () => {
                   data-aos-duration="1000"
                 >
                   <div className="banner__content-coin">
-                    <img src={Static.img3} alt="coin icon" />
+                    <AI cldImg={Image("3")} alt="coin icon" />
                   </div>
                   <h1 className="banner__content-heading">
                     Invest your money with <span>higher return</span>
@@ -36,15 +38,15 @@ const Hero = () => {
                     their earnings with the help of <i>SafewayFX</i> expert's.
                   </p>
                   <div className="banner__btn-group btn-group">
-                    <a
-                      href="signin.html"
+                    <Link
+                      to={LOGIN_URL}
                       className="sfx-btn sfx-btn--primary sfx-btn--arrow"
                     >
                       Get Started
                       <span>
                         <i className="fa-solid fa-arrow-right"></i>
                       </span>{" "}
-                    </a>
+                    </Link>
 
                     <a
                       href="https://www.youtube.com/watch?v=MHhIzIgFgJo&amp;ab_channel=NoCopyrightFootages"
@@ -100,7 +102,7 @@ const Hero = () => {
                   data-aos="fade-left"
                   data-aos-duration="1000"
                 >
-                  <img src={Static.img1} alt="banner-thumb" className="dark" />
+                  <AI cldImg={Image("1")} alt="banner-thumb" className="dark" />
                 </div>
               </div>
             </div>

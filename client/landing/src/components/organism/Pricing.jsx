@@ -1,18 +1,50 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Static } from "../../assets/images";
 import { currency } from "../../config/libs";
+import { useEffect, useState } from "react";
+import { getPricing } from "../../features/requests";
+
+const raw = {
+  name: "",
+  min_profit: 0,
+  duration: "",
+  min: 0,
+  max: 0,
+};
 
 const Pricing = () => {
+  const dispatch = useDispatch();
+  const { pricing, loading } = useSelector((state) => state.requests);
+  const [gold, setGold] = useState(raw);
+  const [plat, setPlat] = useState(raw);
+  const [dia, setDia] = useState(raw);
+
+  const init = async () => {
+    await dispatch(getPricing());
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  useEffect(() => {
+    if (pricing.length) {
+      setGold(pricing[0]);
+      setPlat(pricing[1]);
+      setDia(pricing[2]);
+    }
+  }, [pricing]);
   return (
     <>
       {/* <!-- ===============>> Pricing section start here <<================= --> */}
       <section className="pricing padding-top padding-bottom">
         <div className="section-header section-header--max50">
           <h2 className="mb-15 mt-minus-5">
-            Our <span>pricings </span>plan
+            Our <span>price </span>plan
           </h2>
           <p>
-            We offer the best pricings around - from installations to repairs,
-            maintenance, and more!
+            We offer the best features around - from investment to trading,
+            mining, and more!
           </p>
         </div>
         <div className="container">
@@ -28,9 +60,10 @@ const Pricing = () => {
                     <div className="pricing__item-content">
                       {/* <!-- pricing top part --> */}
                       <div className="pricing__item-top">
-                        <h6 className="mb-15">Gold</h6>
+                        <h6 className="mb-15">{gold.name}</h6>
                         <h3 className="mb-25">
-                          {currency(1750)} <span>Min Profit</span>
+                          {currency(gold.min_profit, "d")}{" "}
+                          <span>Min Profit</span>
                         </h3>
                       </div>
 
@@ -45,7 +78,7 @@ const Pricing = () => {
                                 className="dark"
                               />
                             </span>
-                            Earning Daily (7 Days)
+                            Earning Daily ({gold.duration})
                           </li>
                           <li className="pricing__list-item">
                             <span>
@@ -55,7 +88,7 @@ const Pricing = () => {
                                 className="dark"
                               />
                             </span>
-                            Min Invest {currency(50)}
+                            Min Invest {currency(gold.min, "d")}
                           </li>
                           <li className="pricing__list-item">
                             <span>
@@ -65,7 +98,7 @@ const Pricing = () => {
                                 className="dark"
                               />
                             </span>
-                            Max Invest {currency(400)}
+                            Max Invest {currency(gold.max, "d")}
                           </li>
                           <li className="pricing__list-item">
                             <span>
@@ -113,9 +146,9 @@ const Pricing = () => {
                     <div className="pricing__item-content">
                       {/* <!-- pricing top part --> */}
                       <div className="pricing__item-top">
-                        <h6 className="mb-15">Platinum</h6>
+                        <h6 className="mb-15">{plat.name}</h6>
                         <h3 className="mb-25">
-                          {currency(1750)}
+                          {currency(plat.min_profit, "d")}
                           <span> Min Profit</span>
                         </h3>
                       </div>
@@ -131,7 +164,7 @@ const Pricing = () => {
                                 className="dark"
                               />
                             </span>
-                            Earning Daily (15 Days)
+                            Earning Daily ({plat.duration})
                           </li>
                           <li className="pricing__list-item">
                             <span>
@@ -141,7 +174,7 @@ const Pricing = () => {
                                 className="dark"
                               />
                             </span>
-                            Min Invest {currency(500)}
+                            Min Invest {currency(plat.min, "d")}
                           </li>
                           <li className="pricing__list-item">
                             <span>
@@ -151,7 +184,7 @@ const Pricing = () => {
                                 className="dark"
                               />
                             </span>
-                            Max Invest {currency(45000)}
+                            Max Invest {currency(plat.max, "d")}
                           </li>
                           <li className="pricing__list-item">
                             <span>
@@ -209,9 +242,9 @@ const Pricing = () => {
                     <div className="pricing__item-content">
                       {/* <!-- pricing top part --> */}
                       <div className="pricing__item-top">
-                        <h6 className="mb-15">Diamond</h6>
+                        <h6 className="mb-15">{dia.name}</h6>
                         <h3 className="mb-25">
-                          {currency(210000)}
+                          {currency(dia.min_profit, 'd')}
                           <span> Min Profit</span>
                         </h3>
                       </div>
@@ -227,7 +260,7 @@ const Pricing = () => {
                                 className="dark"
                               />
                             </span>
-                            Earning Daily (28 Days)
+                            Earning Daily ({dia.duration})
                           </li>
                           <li className="pricing__list-item">
                             <span>
@@ -237,7 +270,7 @@ const Pricing = () => {
                                 className="dark"
                               />
                             </span>
-                            Min Invest {currency(50000)}
+                            Min Invest {currency(dia.min, 'd')}
                           </li>
                           <li className="pricing__list-item">
                             <span>
@@ -247,7 +280,7 @@ const Pricing = () => {
                                 className="dark"
                               />
                             </span>
-                            Max Invest {currency(650000)}
+                            Max Invest {currency(dia.max, 'd')}
                           </li>
                           <li className="pricing__list-item">
                             <span>

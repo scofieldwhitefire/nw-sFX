@@ -53,6 +53,7 @@ import contact1 from "./contact/1.png";
 import contact2 from "./contact/2.png";
 import contact3 from "./contact/3.png";
 import contact4 from "./contact/4.png";
+import e404 from "./others/error.png";
 
 export const Static = {
   Moon,
@@ -110,4 +111,5 @@ export const Static = {
   contact2,
   contact3,
   contact4,
+  e404,
 };

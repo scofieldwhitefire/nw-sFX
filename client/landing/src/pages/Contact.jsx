@@ -11,19 +11,19 @@ const Contact = () => {
       <PageHeader title="Contact Us" page="Contact Us" />
 
       {/* <!-- ===============>> Contact section start here <<================= --> */}
-      <div class="contact padding-top padding-bottom">
-        <div class="container">
-          <div class="contact__wrapper">
-            <div class="row g-5">
-              <div class="col-md-5">
+      <div className="contact padding-top padding-bottom">
+        <div className="container">
+          <div className="contact__wrapper">
+            <div className="row g-5">
+              <div className="col-md-5">
                 <div
-                  class="contact__info"
+                  className="contact__info"
                   data-aos="fade-right"
                   data-aos-duration="1000"
                 >
-                  <div class="contact__social">
+                  <div className="contact__social">
                     <h3>
-                      let’s <span>get in touch</span>
+                      let’s <span>get in touch</span>{" "}
                       with us
                     </h3>
                     <Social style={"style4"} />
@@ -31,49 +31,49 @@ const Contact = () => {
                   <ContactBloc />
                 </div>
               </div>
-              <div class="col-md-7">
-                <div class="contact__form">
+              <div className="col-md-7">
+                <div className="contact__form">
                   <form
                     action="https://thetork.com/"
                     data-aos="fade-left"
                     data-aos-duration="1000"
                   >
-                    <div class="row g-4">
-                      <div class="col-12">
+                    <div className="row g-4">
+                      <div className="col-12">
                         <div>
-                          <label for="name" class="form-label">
+                          <label for="name" className="form-label">
                             Name
                           </label>
                           <input
-                            class="form-control"
+                            className="form-control"
                             type="text"
                             id="name"
                             placeholder="Full Name"
                           />
                         </div>
                       </div>
-                      <div class="col-12">
+                      <div className="col-12">
                         <div>
-                          <label for="email" class="form-label">
+                          <label for="email" className="form-label">
                             Email
                           </label>
                           <input
-                            class="form-control"
+                            className="form-control"
                             type="email"
                             id="email"
                             placeholder="Email here"
                           />
                         </div>
                       </div>
-                      <div class="col-12">
+                      <div className="col-12">
                         <div>
-                          <label for="textarea" class="form-label">
+                          <label for="textarea" className="form-label">
                             Message
                           </label>
                           <textarea
                             cols="30"
                             rows="5"
-                            class="form-control"
+                            className="form-control"
                             id="textarea"
                             placeholder="Enter Your Message"
                           ></textarea>
@@ -82,7 +82,7 @@ const Contact = () => {
                     </div>
                     <button
                       type="submit"
-                      class="sfx-btn sfx-btn--border sfx-btn--primary mt-4 d-block"
+                      className="sfx-btn sfx-btn--border sfx-btn--primary mt-4 d-block"
                     >
                       contact us now
                     </button>
@@ -92,11 +92,11 @@ const Contact = () => {
             </div>
           </div>
         </div>
-        <div class="contact__shape">
-          <span class="contact__shape-item contact__shape-item--1">
+        <div className="contact__shape">
+          <span className="contact__shape-item contact__shape-item--1">
             <img src={Static.contact4} alt="shape-icon" />
           </span>
-          <span class="contact__shape-item contact__shape-item--2">
+          <span className="contact__shape-item contact__shape-item--2">
             {" "}
             <span></span>{" "}
           </span>

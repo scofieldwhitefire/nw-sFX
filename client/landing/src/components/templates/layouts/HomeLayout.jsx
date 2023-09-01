@@ -14,6 +14,7 @@ const js = [
   { path: "js", file: "fslightbox.js" },
   { path: "js", file: "purecounter_vanilla.js" },
   { path: "js", file: "custom.js" },
+  { path: "js", file: "toTop.js" },
 ];
 
 const HomeLayout = () => {
@@ -37,19 +38,16 @@ const HomeLayout = () => {
 
   useEffect(() => {
     init();
-  }, []);
-
-  useEffect(() => {
-    document.getElementById("scripts").innerHTML = "";
+        document.getElementById("scripts").innerHTML = "";
     for (let i = 0; i < js.length; i++) {
       AddScript(js[i].path, js[i].file);
     }
   }, [location.pathname]);
-
+ 
   return (
     <>
       <Preloader />
-      <Switcher />
+      {/* <Switcher /> */}
       <Nav header={header} />
       <Outlet />
       <Footer />

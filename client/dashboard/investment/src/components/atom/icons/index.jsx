@@ -1,3 +1,5 @@
+import { ClipboardDocumentCheckIcon, ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
+
 export const HomeIconSVG = () => {
   return (
     <i className="icon">
@@ -295,3 +297,10 @@ export const WalletIconSVG = () => {
     </svg>
   );
 };
+
+export const CopyDocIcon = ({className}) => {
+  return <ClipboardDocumentListIcon className={className} />;
+}
+export const CopyDocCheckIcon = ({className}) => {
+  return <ClipboardDocumentCheckIcon className={className} />;
+}

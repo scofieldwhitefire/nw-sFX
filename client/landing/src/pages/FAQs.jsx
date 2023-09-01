@@ -1,8 +1,38 @@
 import PageHeader from "../components/molecules/PageHeader";
 import ServiceSideBar from "../components/molecules/ServiceSideBar";
 import Helmet from "../components/atom/Helmet";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getFaqs } from "../features/requests";
 
 const FAQs = () => {
+  const dispatch = useDispatch();
+  const { faqs, loading } = useSelector((state) => state.requests);
+  const [faq, setFaq] = useState("General");
+  const [data, setData] = useState([]);
+
+  const init = async () => {
+    await dispatch(getFaqs({ len: "all" }));
+  };
+
+  const switchUp = () => {
+    for (let i = 0; i < faqs.length; i++) {
+      if (faqs[i].tag === faq) {
+        setData(faqs[i].faqs);
+      } else {
+        setData([]);
+      }
+    }
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  useEffect(() => {
+    switchUp();
+  }, [faqs, faq]);
+
   return (
     <>
       <Helmet title={"FAQs"} />
@@ -25,7 +55,7 @@ const FAQs = () => {
                           className="stretched-link"
                           style={{ color: "#00D094" }}
                         >
-                          General FAQ
+                          {faq} FAQ
                         </span>
                       </h3>
                     </div>
@@ -41,185 +71,53 @@ const FAQs = () => {
                             id="faqAccordion1"
                           >
                             <div className="row">
-                              <div className="col-12">
-                                <div className="accordion__item ">
-                                  <div className="accordion__header" id="faq1">
-                                    <button
-                                      className="accordion__button accordion__button--style2"
-                                      type="button"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#faqBody1"
-                                      aria-expanded="false"
-                                      aria-controls="faqBody1"
-                                    >
-                                      <span className="accordion__button-content">
-                                        How it works FAQs: Ticket Purchase
-                                      </span>
-                                      <span className="accordion__button-plusicon"></span>
-                                    </button>
-                                  </div>
-                                  <div
-                                    id="faqBody1"
-                                    className="accordion-collapse collapse show"
-                                    aria-labelledby="faq1"
-                                    data-bs-parent="#faqAccordion1"
-                                  >
-                                    <div className="accordion__body">
-                                      <p className="mb-15">
-                                        Purchase your Crypto Jackpot tickets
-                                        using the supported cryptocurrencies.
-                                        Each ticket represents an entry into the
-                                        drawing for the grand prize.
-                                      </p>
+                              {data.length
+                                ? data.map((x, i) => (
+                                    <div key={x.uuid} className="col-12">
+                                      <div className="accordion__item ">
+                                        <div
+                                          className="accordion__header"
+                                          id={`faq${i}`}
+                                        >
+                                          <button
+                                            className="accordion__button accordion__button--style2"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target={`#faqBody${i}`}
+                                            aria-expanded="false"
+                                            aria-controls={`faqBody${i}`}
+                                          >
+                                            <span className="accordion__button-content">
+                                              {x.question}
+                                            </span>
+                                            <span className="accordion__button-plusicon"></span>
+                                          </button>
+                                        </div>
+                                        <div
+                                          id={`faqBody${i}`}
+                                          className={`accordion-collapse collapse ${
+                                            i === 0 && "show"
+                                          }`}
+                                          aria-labelledby={`faq${i}`}
+                                          data-bs-parent="#faqAccordion1"
+                                        >
+                                          <div className="accordion__body">
+                                            <p className="mb-15">{x.answer}</p>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-12">
-                                <div className="accordion__item ">
-                                  <div className="accordion__header" id="faq2">
-                                    <button
-                                      className="accordion__button accordion__button--style2 collapsed"
-                                      type="button"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#faqBody2"
-                                      aria-expanded="true"
-                                      aria-controls="faqBody2"
-                                    >
-                                      <span className="accordion__button-content">
-                                        How it works FAQs: Draw Day
-                                      </span>
-                                      <span className="accordion__button-plusicon"></span>
-                                    </button>
-                                  </div>
-                                  <div
-                                    id="faqBody2"
-                                    className="accordion-collapse collapse"
-                                    aria-labelledby="faq2"
-                                    data-bs-parent="#faqAccordion1"
-                                  >
-                                    <div className="accordion__body">
-                                      <p className="mb-15">
-                                        On the designated draw day, a random
-                                        selection will determine the winners of
-                                        the Crypto Jackpot. The more tickets you
-                                        have, the higher your chances of
-                                        winning.
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-12">
-                                <div className="accordion__item ">
-                                  <div className="accordion__header" id="faq3">
-                                    <button
-                                      className="accordion__button accordion__button--style2 collapsed"
-                                      type="button"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#faqBody3"
-                                      aria-expanded="false"
-                                      aria-controls="faqBody3"
-                                    >
-                                      <span className="accordion__button-content">
-                                        How it works FAQs: Winning Rewards
-                                      </span>
-                                      <span className="accordion__button-plusicon"></span>
-                                    </button>
-                                  </div>
-                                  <div
-                                    id="faqBody3"
-                                    className="accordion-collapse collapse"
-                                    aria-labelledby="faq3"
-                                    data-bs-parent="#faqAccordion1"
-                                  >
-                                    <div className="accordion__body">
-                                      <p className="mb-15">
-                                        Winners will receive their winnings in
-                                        the form of the advertised
-                                        cryptocurrency. Prizes can vary based on
-                                        the number of participants and the
-                                        current value of the cryptocurrency.
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                                  ))
+                                : `No ${faq} Faq data yet.`}
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div
-                      className="service-details__content"
-                      data-aos="fade-up"
-                      data-aos-duration="900"
-                    >
-                      <h3 className="mb-15 mt-4">
-                        <span
-                          className="stretched-link"
-                          style={{ color: "#00D094" }}
-                        >
-                          Why Join the Crypto Jackpot:
-                        </span>
-                      </h3>
-                      <div className="mb-15">
-                        <ol type="1">
-                          <li className="mb-3">
-                            <b>Exciting Opportunity: </b> Engage in the thrill
-                            of the game and experience the rush of potentially
-                            winning a substantial amount of digital currency.
-                          </li>
-                          <li className="mb-3">
-                            <b>Easy Participation:</b> Purchasing tickets and
-                            participating in the Crypto Jackpot is
-                            straightforward and user-friendly, allowing everyone
-                            to take part.
-                          </li>
-                          <li className="mb-3">
-                            <b>Cryptocurrency Fun: </b> Combine the enjoyment of
-                            gaming with the unique appeal of cryptocurrencies,
-                            creating an innovative and entertaining experience.
-                          </li>
-                        </ol>
-                      </div>
-                    </div>
-                    <div
-                      className="service-details__content"
-                      data-aos="fade-up"
-                      data-aos-duration="900"
-                    >
-                      <h3 className="mb-15 mt-4">
-                        <span
-                          className="stretched-link"
-                          style={{ color: "#00D094" }}
-                        >
-                          Why Choose Us?
-                        </span>
-                      </h3>
-                      <div className="mb-15">
-                        <ol type="1">
-                          <li className="mb-3">
-                            <b>Security:</b> Your collateral is securely stored,
-                            and our platform follows industry best practices for
-                            data protection.
-                          </li>
-                          <li className="mb-3">
-                            <b>Reputation:</b> We are a trusted and established
-                            nam in the crypto lending industry.
-                          </li>
-                          <li className="mb-3">
-                            <b>Transparent Terms:</b> We believe in open
-                            communication, ensuring you have a clear
-                            understanding of your obligations and benefits.
-                          </li>
-                        </ol>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
-              <ServiceSideBar type={"faq"} />
+              <ServiceSideBar type={"faq"} p={faq} func={setFaq} />
             </div>
           </div>
         </div>

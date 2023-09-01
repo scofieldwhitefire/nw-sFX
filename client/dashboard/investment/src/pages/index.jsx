@@ -6,7 +6,6 @@ import RecentEarnWidget from "../components/molecule/widgets/RecentEarnWidget";
 const index = () => {
   return (
     <>
-      <div className="container-fluid content-inner pb-0">
         <CryptoTicker />
         <div className="row pt-2">
           <div className="col-lg-8">
@@ -720,7 +719,6 @@ const index = () => {
             </div>
           </div>
         </div>
-      </div>
     </>
   );
 };

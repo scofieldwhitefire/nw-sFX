@@ -310,14 +310,14 @@ const Loan = () => {
                       </div>
                     </div>
                     <div
-                      className="service-details__content"
+                      className="service-details__content mt-5"
                       data-aos="fade-up"
                       data-aos-duration="900"
                     >
                       <h3 className="mb-15">
                         <span
                           className="stretched-link"
-                          style={{ color: "#00D094" }}
+                          style={{ color: "#00D094", marginTop: "5px" }}
                         >
                           Get Started
                         </span>

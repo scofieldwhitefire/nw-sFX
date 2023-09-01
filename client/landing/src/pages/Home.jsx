@@ -22,9 +22,9 @@ const Home = () => {
       <Services />
       <Roadmap />
       <Pricing />
-      <Blog />
       <Testimonial />
       <Faq />
+      <Blog />
       <CtaOne />
     </>
   )

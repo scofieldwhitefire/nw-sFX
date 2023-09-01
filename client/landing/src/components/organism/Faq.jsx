@@ -1,7 +1,20 @@
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getFaqs } from "../../features/requests";
 import { Static } from "../../assets/images";
 
 const Faq = () => {
+  const dispatch = useDispatch();
+  const { faqs, loading } = useSelector((state) => state.requests);
+
+  const init = async () => {
+    await dispatch(getFaqs({ len: 6 }));
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <>
       {/* <!-- ===============>> FAQ section start here <<================= --> */}
@@ -12,7 +25,7 @@ const Faq = () => {
           </h2>
           <p>
             Hey there! Got questions? We've got answers. Check out our FAQ page
-            for all the deets. Still not satisfied? Hit us up.
+            for all the questions. Still not satisfied? Hit us up.
           </p>
         </div>
         <div className="container">
@@ -26,209 +39,41 @@ const Faq = () => {
                   data-aos-duration="1000"
                 >
                   <div className="row">
-                    <div className="col-12">
-                      <div className="accordion__item ">
-                        <div className="accordion__header" id="faq1">
-                          <button
-                            className="accordion__button"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#faqBody1"
-                            aria-expanded="false"
-                            aria-controls="faqBody1"
-                          >
-                            <span className="accordion__button-content">
-                              What does this tool do?
-                            </span>
-                            <span className="accordion__button-plusicon"></span>
-                          </button>
-                        </div>
-                        <div
-                          id="faqBody1"
-                          className="accordion-collapse collapse show"
-                          aria-labelledby="faq1"
-                          data-bs-parent="#faqAccordion1"
-                        >
-                          <div className="accordion__body">
-                            <p className="mb-15">
-                              Online trading’s primary advantages are that it
-                              allows you to manage your trades at your
-                              convenience.
-                            </p>
+                    {faqs.length
+                      ? faqs.map((x, i) => (
+                          <div key={x.uuid} className="col-12">
+                            <div className="accordion__item ">
+                              <div className="accordion__header" id={`faq${i}`}>
+                                <button
+                                  className="accordion__button"
+                                  type="button"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target={`#faqBody${i}`}
+                                  aria-expanded="false"
+                                  aria-controls={`faqBody${i}`}
+                                >
+                                  <span className="accordion__button-content">
+                                    {x.question}
+                                  </span>
+                                  <span className="accordion__button-plusicon"></span>
+                                </button>
+                              </div>
+                              <div
+                                id={`faqBody${i}`}
+                                className={`accordion-collapse collapse ${
+                                  i === 0 && "show"
+                                }`}
+                                aria-labelledby={`faq${i}`}
+                                data-bs-parent={`#faqAccordion${i}`}
+                              >
+                                <div className="accordion__body">
+                                  <p className="mb-15">{x.answer}</p>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="accordion__item ">
-                        <div className="accordion__header" id="faq2">
-                          <button
-                            className="accordion__button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#faqBody2"
-                            aria-expanded="true"
-                            aria-controls="faqBody2"
-                          >
-                            <span className="accordion__button-content">
-                              What are the disadvantages of online trading?
-                            </span>
-                            <span className="accordion__button-plusicon"></span>
-                          </button>
-                        </div>
-                        <div
-                          id="faqBody2"
-                          className="accordion-collapse collapse"
-                          aria-labelledby="faq2"
-                          data-bs-parent="#faqAccordion1"
-                        >
-                          <div className="accordion__body">
-                            <p className="mb-15">
-                              You don’t need to worry, the interface is
-                              user-friendly. Anyone can use it smoothly. Our
-                              user manual will help you to solve your problem.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="accordion__item ">
-                        <div className="accordion__header" id="faq3">
-                          <button
-                            className="accordion__button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#faqBody3"
-                            aria-expanded="false"
-                            aria-controls="faqBody3"
-                          >
-                            <span className="accordion__button-content">
-                              Is online trading safe?
-                            </span>
-                            <span className="accordion__button-plusicon"></span>
-                          </button>
-                        </div>
-                        <div
-                          id="faqBody3"
-                          className="accordion-collapse collapse"
-                          aria-labelledby="faq3"
-                          data-bs-parent="#faqAccordion1"
-                        >
-                          <div className="accordion__body">
-                            <p className="mb-15">
-                              {" "}
-                              Online trading’s primary advantages are that it
-                              allows you to manage your trades at your
-                              convenience.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="accordion__item ">
-                        <div className="accordion__header" id="faq4">
-                          <button
-                            className="accordion__button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#faqBody4"
-                            aria-expanded="false"
-                            aria-controls="faqBody4"
-                          >
-                            <span className="accordion__button-content">
-                              What is online trading, and how does it work?
-                            </span>
-                            <span className="accordion__button-plusicon"></span>
-                          </button>
-                        </div>
-                        <div
-                          id="faqBody4"
-                          className="accordion-collapse collapse"
-                          aria-labelledby="faq4"
-                          data-bs-parent="#faqAccordion1"
-                        >
-                          <div className="accordion__body">
-                            <p className="mb-15">
-                              {" "}
-                              Online trading’s primary advantages are that it
-                              allows you to manage your trades at your
-                              convenience.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="accordion__item ">
-                        <div className="accordion__header" id="faq5">
-                          <button
-                            className="accordion__button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#faqBody5"
-                            aria-expanded="false"
-                            aria-controls="faqBody5"
-                          >
-                            <span className="accordion__button-content">
-                              Which app is best for online trading?
-                            </span>
-                            <span className="accordion__button-plusicon"></span>
-                          </button>
-                        </div>
-                        <div
-                          id="faqBody5"
-                          className="accordion-collapse collapse"
-                          aria-labelledby="faq5"
-                          data-bs-parent="#faqAccordion1"
-                        >
-                          <div className="accordion__body">
-                            <p className="mb-15">
-                              {" "}
-                              Online trading’s primary advantages are that it
-                              allows you to manage your trades at your
-                              convenience.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="accordion__item border-0">
-                        <div className="accordion__header" id="faq6">
-                          <button
-                            className="accordion__button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#faqBody6"
-                            aria-expanded="false"
-                            aria-controls="faqBody6"
-                          >
-                            <span className="accordion__button-content">
-                              {" "}
-                              How to create a trading account?
-                            </span>
-                            <span className="accordion__button-plusicon"></span>
-                          </button>
-                        </div>
-                        <div
-                          id="faqBody6"
-                          className="accordion-collapse collapse"
-                          aria-labelledby="faq6"
-                          data-bs-parent="#faqAccordion1"
-                        >
-                          <div className="accordion__body">
-                            <p className="mb-15">
-                              {" "}
-                              Online trading’s primary advantages are that it
-                              allows you to manage your trades at your
-                              convenience.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                        ))
+                      : "No item found"}
                   </div>
                 </div>
               </div>

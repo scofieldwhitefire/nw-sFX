@@ -7,11 +7,11 @@ const Services = () => {
       <section className="service padding-top padding-bottom">
         <div className="section-header section-header--max50">
           <h2 className="mb-15 mt-minus-5">
-            <span>services </span>We offer
+            <span>features </span>We offer
           </h2>
           <p>
-            We offer the best services around - from installations to repairs,
-            maintenance, and more!
+            We offer the best features around - from investment to trading,
+            mining, and more!
           </p>
         </div>
         <div className="container">
@@ -35,13 +35,16 @@ const Services = () => {
                     </div>
                     <div className="service__content">
                       <h5 className="mb-15">
-                        <a className="stretched-link" href="service-details.html">
+                        <a
+                          className="stretched-link"
+                          href="service-details.html"
+                        >
                           Strategy Consulting
                         </a>
                       </h5>
                       <p className="mb-0">
-                        A social assistant that's flexible can accommodate your
-                        schedule and needs, making life easier.
+                        <i>SafewayFX</i> provide it customers with the best
+                        trading strategy to help grow a higher profit return.
                       </p>
                     </div>
                   </div>
@@ -65,13 +68,16 @@ const Services = () => {
                     </div>
                     <div className="service__content">
                       <h5 className="mb-15">
-                        <a className="stretched-link" href="service-details.html">
-                          Financial Advisory
+                        <a
+                          className="stretched-link"
+                          href="service-details.html"
+                        >
+                          Company Growth
                         </a>
                       </h5>
                       <p className="mb-0">
-                        Modules transform smart trading by automating processes
-                        and improving decision-making.
+                        Every organization walks towards a positive growth and{" "}
+                        <i>SafewayFX</i> want to grow along with it's customers.
                       </p>
                     </div>
                   </div>
@@ -95,13 +101,16 @@ const Services = () => {
                     </div>
                     <div className="service__content">
                       <h5 className="mb-15">
-                        <a className="stretched-link" href="service-details.html">
-                          Management
+                        <a
+                          className="stretched-link"
+                          href="service-details.html"
+                        >
+                          Reputation
                         </a>
                       </h5>
                       <p className="mb-0">
-                        There, it's me, your friendly neighborhood reporter's
-                        news analyst processes and improving
+                        We're a registered and certified company, Providing its
+                        investment services to its members all around the globe.
                       </p>
                     </div>
                   </div>
@@ -125,13 +134,16 @@ const Services = () => {
                     </div>
                     <div className="service__content">
                       <h5 className="mb-15">
-                        <a className="stretched-link" href="service-details.html">
-                          Supply Optimization
+                        <a
+                          className="stretched-link"
+                          href="service-details.html"
+                        >
+                          Best Support
                         </a>
                       </h5>
                       <p className="mb-0">
-                        Hey, have you checked out that new cryptocurrency
-                        platform? It's pretty cool and easy to use!
+                        We have provided a stable and reliable customer service
+                        to tend to all of your needs <b>24/7</b>.
                       </p>
                     </div>
                   </div>
@@ -155,13 +167,17 @@ const Services = () => {
                     </div>
                     <div className="service__content">
                       <h5 className="mb-15">
-                        <a className="stretched-link" href="service-details.html">
-                          HR consulting
+                        <a
+                          className="stretched-link"
+                          href="service-details.html"
+                        >
+                          Innovation
                         </a>
                       </h5>
                       <p className="mb-0">
-                        Hey guys, just a quick update on exchange orders. There
-                        have been some changes currency!
+                        We've teams of experts working around the clock to
+                        improve trading standards to ensure the best trading
+                        experience.
                       </p>
                     </div>
                   </div>
@@ -185,13 +201,17 @@ const Services = () => {
                     </div>
                     <div className="service__content">
                       <h5 className="mb-15">
-                        <a className="stretched-link" href="service-details.html">
-                          Marketing consulting
+                        <a
+                          className="stretched-link"
+                          href="service-details.html"
+                        >
+                          Customer Relationship
                         </a>
                       </h5>
                       <p className="mb-0">
-                        Hey! Just wanted to let you know that the price
-                        notification module processes is now live!
+                        We strive to have a very healthy and mutually beneficial
+                        relationship with our customers to foster a happy
+                        investment.
                       </p>
                     </div>
                   </div>

@@ -46,8 +46,10 @@ const DashboardLayout = () => {
       <Loader />
       <SideBar />
       <main className="main-content">
-        <Nav /> 
-        <Outlet />
+        <Nav />
+        <div className="container-fluid content-inner pb-0">
+          <Outlet />
+        </div>
         <Footer />
       </main>
     </>

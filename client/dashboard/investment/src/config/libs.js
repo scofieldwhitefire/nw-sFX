@@ -4,9 +4,11 @@ import { v4 as uuidv4 } from "uuid";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link as LNK, NavLink as NL} from "react-router-dom";
+import { Link as LNK, NavLink as NL } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import Clipboard from "react-clipboard.js";
+import { DateTime } from "luxon";
 
 export const Axios = axios.create({
   baseURL: API_URL,
@@ -45,6 +47,7 @@ export const Toast = (
   }
 };
 export const TC = ToastContainer;
+export const CB = Clipboard;
 export const Link = LNK;
 export const NavLink = NL;
 
@@ -69,9 +72,15 @@ const deci = new Intl.NumberFormat("en-US", {
 });
 
 export const currency = (a, t = "c") => {
-  if (t === 'c') {
-      return curr.format(parseFloat(a));
-    } else {
-      return `$${deci.format(parseFloat(a))}`;
+  if (t === "c") {
+    return curr.format(parseFloat(a));
+  } else {
+    return `$${deci.format(parseFloat(a))}`;
   }
 };
+
+export const DT = DateTime
+
+export const TimeZone = DT.now().setZone("America/Los_Angeles", {
+  keepLocalTime: true,
+});

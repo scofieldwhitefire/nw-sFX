@@ -14,6 +14,56 @@ window.addEventListener("load", function () {
 // =================== preloader js end ================== //
 
 setTimeout(() => {
+  // // =================== light and dark start ================== //
+
+  // const moon = document.getElementById("btnSwitch");
+  // const icon = document.querySelector("#btnSwitch img");
+  // moon.addEventListener("click", () => {
+  //   alert('tes')
+  //   const theme = document.documentElement.getAttribute("data-theme");
+  //   document.documentElement.setAttribute(
+  //     "data-theme",
+  //     theme === "dark" ? "light" : "dark"
+  //   );
+  //   if (theme === "light") {
+  //     icon.src = "/assets/icon/sun.svg";
+  //     moon.style.backgroundColor = "white";
+  //   } else {
+  //     icon.src = "/assets/icon/moon.svg";
+  //     moon.style.backgroundColor = "#00D094";
+  //   }
+
+  //   changeImage();
+  //  });
+  // // =================== light and dark end ================== //
+
+  // =================== Change image path start ================== //
+
+  function changeImage() {
+    var theme = document.querySelector("html").getAttribute("data-theme");
+    if (theme === "dark") {
+      var images = document.querySelectorAll("img.dark");
+
+      for (var i = 0; i < images.length; i++) {
+        var oldSrc = images[i].src;
+        var oldIndex = oldSrc.lastIndexOf(".");
+        var baseName = oldSrc.slice(0, oldIndex);
+        var extension = oldSrc.slice(oldIndex);
+        var newSrc = baseName + "-dark" + extension;
+        images[i].src = newSrc;
+      }
+    } else {
+      var images = document.querySelectorAll("img.dark");
+
+      for (var i = 0; i < images.length; i++) {
+        var oldSrc = images[i].src;
+        var newSrc = oldSrc.replace("-dark.", ".");
+        images[i].src = newSrc;
+      }
+    }
+  }
+
+  changeImage();
 
   // =================== header js start here ===================
 
@@ -42,7 +92,7 @@ setTimeout(() => {
 
   // Toggle menu on click
   // Disabled to fix reload problem
-  
+
   // var menuLinks = document.querySelectorAll(".menu li a");
 
   // menuLinks.forEach(function (link) {
@@ -149,35 +199,48 @@ setTimeout(() => {
 
   // testimonial slider
 
-  const testimonial = new Swiper(".testimonial__slider", {
-    spaceBetween: 24,
-    grabCursor: true,
-    loop: true,
-    slidesPerView: 1,
-    breakpoints: {
-      576: {
-        slidesPerView: 1,
-      },
-      768: {
-        slidesPerView: 2,
-      },
-      992: {
-        slidesPerView: 2,
-      },
-      1200: {
-        slidesPerView: 2,
-        spaceBetween: 25,
-      },
-    },
+  const t = setInterval(() => {
+    try {
+      const aaa = document
+        .querySelector("#testimonial_i_")
+        .getAttribute("data-has-testimonial");
 
-    autoplay: true,
-    speed: 500,
+      if (aaa === "true") {
+        const testimonial = new Swiper(".testimonial__slider", {
+          spaceBetween: 24,
+          grabCursor: true,
+          loop: true,
+          slidesPerView: 1,
+          breakpoints: {
+            576: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 2,
+            },
+            992: {
+              slidesPerView: 2,
+            },
+            1200: {
+              slidesPerView: 2,
+              spaceBetween: 25,
+            },
+          },
 
-    navigation: {
-      nextEl: ".testimonial__slider-next",
-      prevEl: ".testimonial__slider-prev",
-    },
-  });
+          autoplay: true,
+          speed: 500,
+
+          navigation: {
+            nextEl: ".testimonial__slider-next",
+            prevEl: ".testimonial__slider-prev",
+          },
+        });
+        clearInterval(t);
+      }
+    } catch (err) {
+      clearInterval(t);
+    }
+  }, 1000);
 
   // testimonial slider 2
   const testimonial2 = new Swiper(".testimonial__slider2", {
@@ -286,4 +349,4 @@ setTimeout(() => {
   // =================== count start here =================== //
   new PureCounter();
   // =================== count end here =================== //
-}, 1200);
+}, 1500);

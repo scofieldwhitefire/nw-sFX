@@ -15,6 +15,11 @@ const FAQs = lazy(() => import("./pages/FAQs"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Calculator = lazy(() => import("./pages/Calculator"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogDetails = lazy(() => import("./pages/BlogDetails"));
+const E404 = lazy(() => import("./pages/error/E404"));
+const Career = lazy(() => import("./pages/Career"));
+const Testimonials = lazy(() => import("./pages/Testimonials"));
 
 function App() {
   return (
@@ -110,14 +115,6 @@ function App() {
               </Suspense>
             }
           />
-          {/* <Route
-            path="/tracking"
-            element={
-              <Suspense fallback={<Preloader />}>
-                <Tracking />
-              </Suspense>
-            }
-          />
           <Route
             path="/blog"
             element={
@@ -135,38 +132,30 @@ function App() {
             }
           />
           <Route
-            path="/about"
+            path="/careers"
             element={
               <Suspense fallback={<Preloader />}>
-                <About />
+                <Career />
               </Suspense>
             }
           />
           <Route
-            path="/contact"
+            path="/testimonials"
             element={
               <Suspense fallback={<Preloader />}>
-                <Contact />
+                <Testimonials />
               </Suspense>
             }
           />
-          <Route
-            path="/services"
-            element={
-              <Suspense fallback={<Preloader />}>
-                <Services />
-              </Suspense>
-            }
-          /> */}
-          {/* <Route
-            path="about"
-            element={
-              <Suspense fallback={<Preloader />}>
-                <About />
-              </Suspense>
-            }
-          />  */}
         </Route>
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<Preloader />}>
+              <E404 />
+            </Suspense>
+          }
+        />
       </Routes>
     </>
   );

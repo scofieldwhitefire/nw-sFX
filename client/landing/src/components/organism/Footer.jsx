@@ -6,6 +6,13 @@ import { Link } from "../../config/libs";
 
 const Footer = () => {
   const [year] = useState(new Date().getFullYear());
+
+  const sendOut = (x, y) => {
+    y === "mail"
+      ? (window.location.href = `mailto:${x}`)
+      : (window.location.href = `tell:${x}`);
+  };
+
   return (
     <>
       {/* <!-- ===============>> footer start here <<================= --> */}
@@ -21,8 +28,8 @@ const Footer = () => {
                     </Link>
                     <p className="footer__about-moto ">
                       Welcome to our trading site! We offer the best, most
-                      affordable services and features around. <b>Investment</b>
-                      , <b>Trading</b>, <b>Mining</b>, <b>Loan</b>,
+                      affordable services and features around. <b>Investment</b>{" "}
+                      ,<b>Trading</b>, <b>Mining</b>, <b>Loan</b>,{" "}
                       <b>Jackpot Games</b> today to get started.
                     </p>
                     <div className="footer__app">
@@ -71,16 +78,16 @@ const Footer = () => {
                     <div className="footer__links-content">
                       <ul className="footer__linklist">
                         <li className="footer__linklist-item">
-                          <a href="about.html">Blog</a>
+                          <Link to="/blog">Blog</Link>
                         </li>
                         <li className="footer__linklist-item">
-                          <a href="team.html">Careers</a>
+                          <Link to="/careers">Careers</Link>
                         </li>
                         <li className="footer__linklist-item">
-                          <a href="service.html">Testimonials</a>
+                          <Link to="/testimonials">Testimonials</Link>
                         </li>
                         <li className="footer__linklist-item">
-                          <a href="#">Profit Calculator</a>
+                          <Link to="/calculator">Profit Calculator</Link>
                         </li>
                         <li className="footer__linklist-item">
                           <a href="service.html">Status</a>
@@ -92,10 +99,13 @@ const Footer = () => {
                 <div className="col-md-2 col-sm-4 col-6">
                   <div className="footer__links">
                     <div className="footer__links-tittle">
-                      <h6>Support</h6>
+                      <h6>Company</h6>
                     </div>
                     <div className="footer__links-content">
                       <ul className="footer__linklist">
+                        <li className="footer__linklist-item">
+                          <a href="#">Support </a>
+                        </li>
                         <li className="footer__linklist-item">
                           <a href="#">Terms & Conditions</a>
                         </li>
@@ -107,9 +117,6 @@ const Footer = () => {
                         </li>
                         <li className="footer__linklist-item">
                           <a href="#">Knowledge Base</a>
-                        </li>
-                        <li className="footer__linklist-item">
-                          <a href="#">Support Center</a>
                         </li>
                       </ul>
                     </div>
@@ -123,13 +130,38 @@ const Footer = () => {
                     <div className="footer__links-content">
                       <ul className="footer__linklist">
                         <li className="footer__linklist-item">
-                          <a href="mailto:">help@safewayfx.com</a>
+                          <span
+                            style={{ cursor: "pointer" }}
+                            onClick={() =>
+                              sendOut("help@safewayfx.com", "mail")
+                            }
+                          >
+                            help{/* <!-- Comment--> */}@safwayfx.
+                            {/* <!-- Comment--> */}com
+                          </span>
                         </li>
                         <li className="footer__linklist-item">
-                          <a href="mailto:">support@safewayfx.com</a>
+                          <span
+                            style={{ cursor: "pointer" }}
+                            onClick={() =>
+                              sendOut("support@safewayfx.com", "mail")
+                            }
+                          >
+                            support{/* <!-- Comment--> */}@safwayfx.
+                            {/* <!-- Comment--> */}
+                            com
+                          </span>
                         </li>
                         <li className="footer__linklist-item">
-                          <a href="text:">+1 (323) 123 4567</a>
+                          <span
+                            style={{ cursor: "pointer" }}
+                            onClick={() =>
+                              sendOut("help@safewayfx.com", "tell")
+                            }
+                          >
+                            +1(323){/* <!-- Comment--> */} 767{" "}
+                            {/* <!-- Comment--> */}5226
+                          </span>
                         </li>
                         {/* <li className="footer__linklist-item">
                           <a href="#"></a>
@@ -157,7 +189,7 @@ const Footer = () => {
                     </a>
                   </p>
                 </div>
-                <Social style={'style22'} />
+                <Social style={"style22"} />
               </div>
             </div>
           </div>
