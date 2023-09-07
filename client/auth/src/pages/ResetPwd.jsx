@@ -3,6 +3,7 @@ import PwdImg1 from "../assets/images/PwdImg1";
 import { Link } from "../config/libs";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Helmet from "../components/atom/Helmet";
 
 const ResetPwd = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const ResetPwd = () => {
   };
   return (
     <>
+      <Helmet title={"Forgot password?"} />
       <div className="auth-bg">
         <section className="vh-100">
           <div className="container h-100">
@@ -75,7 +77,7 @@ const ResetPwd = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                   >
-                    <g id="Reset-password" clip-path="url(#clip0)">
+                    <g id="Reset-password" clipPath="url(#clip0)">
                       <g>
                         <rect
                           x="550.64"

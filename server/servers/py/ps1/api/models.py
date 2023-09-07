@@ -1,7 +1,24 @@
 from django.db import models
-import uuid
+# Create your models here.
+
+import random, string, pytz, uuid
+from datetime import datetime, timedelta
+from django.utils import timezone
 
 # Create your models here.
+
+#================= FUCTIONS =================#
+def custom_id():
+	x = ran_gen(8,'abcdefghijklmnopqrstuvwxyz')
+	return x
+
+def ran_gen(size, chars=string.ascii_uppercase + string.digits):
+	return ''.join(random.choice(chars) for x in range(size))
+
+def create_time():
+	now = datetime.now()
+	date = now.strftime('%Y-%m-%dT%TZ')
+	return date
 T = True
 F = False
 
@@ -79,7 +96,7 @@ class FaqTag(models.Model):
             return f"Faq Tag for {self.name} [Active]"
         else:
             return f"Faq Tag for {self.name} [Not Active]"
-
+        
 
 class FAQ(models.Model):
     uuid = models.UUIDField()
@@ -121,3 +138,20 @@ class Blog(models.Model):
             return f"Blog {self.title} by {self.author}. [Showing]"
         else:
             return f"Blog {self.title} by {self.author}. [Not Showing]"
+        
+
+class RecentActivity(models.Model):
+    user = models.CharField(max_length=100)
+    user_id = models.CharField(max_length=100)
+    activity_type = models.CharField(max_length=50)
+    cuz_ID = models.CharField(max_length=50, default=custom_id())
+    cuz_ID_2 = models.CharField(max_length=50, default=custom_id())
+    time = models.CharField(max_length=150, default=create_time())
+    status = models.CharField(max_length=150)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created']
+
+    def __str__(self):
+        return f"{self.user} {self.status} in ({self.activity_type})."

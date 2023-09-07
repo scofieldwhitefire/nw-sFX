@@ -3,7 +3,7 @@ from .views import (getPricingView,
                     getTestimonialView,
                     getFAQView, getBlogView,
                     calculatorView, getSubPlanView,
-                    getAllBlogView,
+                    getAllBlogView, recentActivitiesView
                     )
 
 urlpatterns = [
@@ -14,4 +14,5 @@ urlpatterns = [
     path('get-all-blog', getAllBlogView.as_view()),
     path('get-subplans', getSubPlanView.as_view()),
     path('calculator', calculatorView.as_view()),
+    path('recent-activity', recentActivitiesView.as_view()),
 ]

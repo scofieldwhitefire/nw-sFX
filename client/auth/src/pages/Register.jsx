@@ -5,11 +5,12 @@ import RegImg2 from "../assets/images/RegImg2";
 import RegImg3 from "../assets/images/RegImg3";
 import RegImg4 from "../assets/images/RegImg4";
 import RegImg5 from "../assets/images/RegImg5";
-import { Link, TC, Toast } from "../config/libs";
+import { Link, TC, Title, Toast } from "../config/libs";
 import { LANDING_URL } from "../config";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../features/auth";
 import { useNavigate } from "react-router-dom";
+import Helmet from "../components/atom/Helmet";
 
 const initData = {
   username: "",
@@ -34,16 +35,8 @@ const Register = () => {
   const [calling, setCalling] = useState("");
   const [dots, setDots] = useState("");
 
-  const {
-    username,
-    email,
-    firstName,
-    lastName,
-    gender,
-    phoneNo,
-    password,
-    pwd,
-  } = data;
+  let { username, email, firstName, lastName, gender, phoneNo, password, pwd } =
+    data;
 
   const onChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -61,31 +54,77 @@ const Register = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    const notAllowed = [
+      "admin",
+      "root",
+      "user",
+      "username",
+      "email",
+      "name",
+      "users",
+      "usernames",
+      "roots",
+      "admins",
+      "emails",
+      "names",
+    ];
     Toast();
 
     let err = [];
+    username = username.toLowerCase();
+    email = email.toLowerCase();
+    firstName = firstName.toLowerCase();
+    lastName = lastName.toLowerCase();
+    const rpwd = password.toLowerCase();
 
     const intReg = /^\d+$/;
     const strReg = /^[A-Za-z]*$/;
     const intStrReg = /^[A-Za-z0-9]*$/;
-    const sys = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\d]/;
+    const sys = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     const emailRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     // console.log(`${calling}`);
     // console.log(`${calling.substring(1)}${phoneNo}`);
+    let run = !!0,
+      runU = !!1,
+      runE = !!1,
+      yesU = !!0,
+      yesE = !!0;
 
-    if (intReg.test(username.charAt(0))) {
-      err.push("Username can't start with a number.");
+    for (let j = 0; j < notAllowed.length; j++) {
+      if (username.includes(notAllowed[j])) {
+        runU = !!0;
+        yesU = !!1;
+        console.log(username, notAllowed[j])
+      }
     }
-    if (sys.test(username.charAt(0))) {
-      err.push("Username can't start with a symbol.");
+    yesU &&
+      err.push("Username contains words that are not allowed on SafewayFX.");
+    for (let k = 0; k < notAllowed.length; k++) {
+      if (email.includes(notAllowed[k])) {
+        runU = !!0;
+        yesE = !!1;
+      }
     }
-    if (sys.test(username)) {
-      err.push("Username can't contain symbols.");
+    yesE && err.push(`${email} can't be allowed on SafewayFX.`);
+
+    if (runU) {
+      if (intReg.test(username.charAt(0))) {
+        err.push("Username can't start with a number.");
+      }
+      if (sys.test(username.charAt(0))) {
+        err.push("Username can't start with a symbol.");
+      }
+      if (sys.test(username)) {
+        err.push("Username can't contain symbols.");
+      }
     }
-    if (!email.match(emailRegex)) {
-      err.push("Invalid email.");
+    if (runE) {
+      if (!email.match(emailRegex)) {
+        err.push("Invalid email.");
+      }
     }
     if (!strReg.test(firstName)) {
       err.push("First name shouldn't contain numbers.");
@@ -94,8 +133,25 @@ const Register = () => {
       err.push("Last name shouldn't contain numbers.");
     }
 
-    if (password !== pwd) {
-      err.push("Both passwords don't match!");
+    if (runU && runE) {
+      if (rpwd.includes(username)) {
+        err.push(
+          "For security reasons your password can't contain your username."
+        );
+        run = !!0;
+      }
+      const a = email.split("@");
+      if (rpwd.includes(a[0])) {
+        err.push(
+          "For security reasons your password can't contain your email."
+        );
+        run = !!0;
+      }
+    }
+    if (run) {
+      if (password !== pwd) {
+        err.push("Both passwords don't match!");
+      }
     }
     if (err.length) {
       for (let i = 0; i < err.length; i++) {
@@ -121,25 +177,16 @@ const Register = () => {
       console.log(res);
       if (res.meta.requestStatus === "rejected") {
         Toast();
-        Toast("error", "Unable to create your account.");
+        Toast("error", res.payload?.detail);
       } else {
         Toast();
-        let msg = "";
-        let redirect = !!0;
-        if (!details.isVerified) {
-          msg = "Now verify your account and get started";
-          redirect = !!1;
-        }
+        const msg = res.payload?.message;
+
         Toast("success", `Account created successfully, ${msg}`);
-        console.log(details, details.email);
-        sessionStorage.setItem("email", details.email);
+        localStorage.setItem("email", email);
         setTimeout(() => {
-          if (redirect) {
-            navigate("/verify");
-          } else {
-            navigate("/");
-          }
-        }, 3000);
+          navigate("/verify");
+        }, 4500);
       }
     }
   };
@@ -189,6 +236,7 @@ const Register = () => {
   return (
     <>
       <TC />
+      <Helmet title={"Register"} />
       <div className="auth-bg">
         <section className="login-content">
           <div className="row m-0 align-items-center vh-100">

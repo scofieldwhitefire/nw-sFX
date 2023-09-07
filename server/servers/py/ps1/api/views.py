@@ -13,6 +13,7 @@ from .serializers import (getPricingSerializer as gps,
                           getFAQSerializer as gfs,
                           getBlogSerializer as gbs,
                           calculatorSerializer as cs,
+                          recentActivitiesSerializer as ras,
                           )
 
 # Create your views here.
@@ -64,4 +65,11 @@ class calculatorView(APIView):
     def post(self, request):
         data = request.data
         res = cs.calculatorHome(data)
+        return Response(res.data, status=status.HTTP_200_OK)
+
+
+class recentActivitiesView(APIView):
+    def post(self, request):
+        data = request.data
+        res = ras.create(data)
         return Response(res.data, status=status.HTTP_200_OK)

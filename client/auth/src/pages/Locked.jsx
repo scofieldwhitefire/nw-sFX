@@ -5,8 +5,11 @@ import LckImg1 from "../assets/images/LckImg1";
 import LckImg2 from "../assets/images/LckImg2";
 import LckImg3 from "../assets/images/LckImg3";
 import LckImg4 from "../assets/images/LckImg4";
-import { Link } from "../config/libs";
+import { Link, TC, Toast } from "../config/libs";
 import { useEffect, useState } from "react";
+import { Login as Log } from "../features/auth";
+import Helmet from "../components/atom/Helmet";
+import { useDispatch } from "react-redux";
 
 const initData = {
   login: "",
@@ -15,6 +18,7 @@ const initData = {
 };
 
 const Locked = () => {
+   const dispatch = useDispatch(); 
   const navigate = useNavigate();
   const [data, setData] = useState(initData);
   const [loaded, setLoaded] = useState(!!0);
@@ -31,6 +35,40 @@ const Locked = () => {
     navigate("/");
   };
 
+  const Submit = async () => {
+    Toast();
+    console.log({ login, password, type });
+    Toast("promise", "Logging you in, please wait");
+
+    const res = await dispatch(Log({ login, password }));
+    Toast();
+
+    console.log(res);
+    if (res.meta.requestStatus === "rejected") {
+      Toast();
+      Toast("error", res.payload?.detail);
+    } else {
+      Toast();
+
+      if (res.payload.isActive) {
+        if (!res.payload.isVerified) {
+          Toast("success", `You need to verify your account.`);
+          localStorage.setItem("email", res.payload.email);
+          setTimeout(() => {
+            navigate("/verify");
+          }, 4500);
+        }
+        if (res.payload.isAdmin) {
+          /* would take another action. */
+        }
+      } else if (res.payload.isDisabled) {
+        //account disabled
+      } else if (res.payload.isDeleted) {
+        //account deleted
+      }
+    }
+  }
+
   const init = () => {
     const u = localStorage.getItem("userLogin");
     if (u !== null) {
@@ -46,6 +84,8 @@ const Locked = () => {
   }, []);
   return (
     <>
+      <TC />
+      <Helmet title={`Login as ${login}`} />
       {loaded && (
         <div className="auth-bg">
           <section className="vh-100">
@@ -82,8 +122,17 @@ const Locked = () => {
                                 <label htmlFor="Password">Password</label>
                               </div>
                             </div>
+                            <div className="d-flex justify-content-between  align-items-center flex-wrap">
+                              <div className="form-group">
+                                <Link to="/forgot-password">
+                                  Forgot Password?
+                                </Link>
+                              </div>
+                            </div>
                             <div className="text-center mt-3">
                               <button
+                                type="button"
+                                onClick={Submit}
                                 disabled={
                                   password === "" || password.length < 6
                                 }

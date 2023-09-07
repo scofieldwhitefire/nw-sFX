@@ -7,6 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link as LNK } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import { DateTime } from "luxon";
+
+export const generateSecure = () => {
+  const result = DateTime.local().setZone("America/Indiana/Petersburg").toISO();
+  console.log(result)
+
+  return String(result);
+};
 
 export const Axios = axios.create({
   baseURL: API_URL,
@@ -69,8 +77,14 @@ const deci = new Intl.NumberFormat("en-US", {
 
 export const currency = (a, t = "c") => {
   if (t === c) {
-      return curr.format(parseFloat(a));
-    } else {
-      return `$${curr.format(parseFloat(a))}`;
+    return curr.format(parseFloat(a));
+  } else {
+    return `$${curr.format(parseFloat(a))}`;
   }
+};
+
+export const Title = (s) => {
+  const i = s.charAt(0).toUpperCase();
+  const j = s.slice(1);
+  return `${i}${j}`;
 };

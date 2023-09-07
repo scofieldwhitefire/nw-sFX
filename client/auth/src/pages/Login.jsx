@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import { Static } from "../assets/images";
 import LoginImg0 from "../assets/images/LoginImg0";
 import LoginImg1 from "../assets/images/LoginImg1";
-import { Link } from "../config/libs";
+import { Link, TC, Toast } from "../config/libs";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Login as Log } from "../features/auth";
+import Helmet from "../components/atom/Helmet";
+import { IPINFO_API } from "../config";
+import axios from "axios";
 
 const initData = {
   login: "",
@@ -12,6 +17,7 @@ const initData = {
 };
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState(initData);
   const [loaded, setLoaded] = useState(!!0);
@@ -26,22 +32,54 @@ const Login = () => {
     setData({ ...data, type: e.target.checked });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if (type) {
-      localStorage.setItem("userLogin", login);
+    Toast();
+    // const { data } = await axios.get(`https://ipinfo.io?token=${IPINFO_API}`);
+    // const { ip } = data;
+    const { ip } = {ip:'the ip'};
+    const userAgent = document.querySelector(".hideY").value;
+
+    Toast("promise", "Logging you in, please wait");
+
+    const res = await dispatch(Log({ login, password, ip, userAgent }));
+    Toast();
+
+    console.log(res);
+    if (res.meta.requestStatus === "rejected") {
+      Toast();
+      Toast("error", res.payload?.detail);
     } else {
-      localStorage.removeItem("userLogin");
+      Toast();
+
+      if (res.payload.isActive) {
+        if (!res.payload.isVerified) {
+          Toast("success", `You need to verify your account.`);
+          localStorage.setItem("email", res.payload.email);
+          setTimeout(() => {
+            navigate("/verify");
+          }, 4500);
+        } else {
+          if (res.payload.isAdmin) {
+            /* would take another action. */
+          }
+          localStorage.setItem("userLogin", login);
+        }
+      } else if (res.payload.isDisabled) {
+        //account disabled
+      } else if (res.payload.isDeleted) {
+        //account deleted
+      }
     }
-    console.log({ login, password, type });
   };
 
   const First = () => {
     const u = localStorage.getItem("userLogin");
-    if (u !== null) {
+    if (u) {
       navigate("/lockscreen");
     } else {
       setLoaded(!!1);
+      setData({ ...data, type: !!1 });
     }
   };
 
@@ -51,6 +89,8 @@ const Login = () => {
 
   return (
     <>
+      <TC />
+      <Helmet title={"Login"} />
       {loaded && (
         <div className="auth-bg">
           <section className="login-content">
@@ -167,9 +207,16 @@ const Login = () => {
                                 </Link>
                               </div>
                             </div>
+                            <input type="hidden" name="" className="hideX" />
+                            <input type="hidden" name="" className="hideY" />
                             <div className="text-center">
                               <button
-                                disabled={password === "" || password.length < 6 || login === ""}
+                                disabled={
+                                  password === "" ||
+                                  password.length < 6 ||
+                                  login === "" ||
+                                  login.length < 4
+                                }
                                 type="submit"
                                 className="btn btn-primary"
                               >

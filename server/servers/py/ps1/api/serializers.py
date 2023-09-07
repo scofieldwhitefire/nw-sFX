@@ -5,12 +5,15 @@ import arrow
 
 from .utils import *
 
+from .models import custom_id
+
 from .models import (Plan, 
                      SubPlan as SP,
                      Testimonial as Test,
                      FAQ,
                      FaqTag as FT,
-                     Blog
+                     Blog,
+                     RecentActivity as RA
                      )
 
 T = True
@@ -495,5 +498,33 @@ class calculatorSerializer(serializers.ModelSerializer):
             data = xList
 
         return Response
+
+
+class recentActivitiesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RA
+        fields = ['user', 'user_id', 'cuz_ID', 'cuz_ID_2']
+
+    def create(d):
+        try:
+            a = RA()
+            a.user = d['user']
+            a.user_id = d['user_id']
+            a.activity_type = d['activity_type']
+            a.cuz_ID = custom_id()
+            a.cuz_ID_2 = custom_id()
+            a.time = d['time']
+            a.status = d['status']
+            a.save()
+            res = T
+        except Exception as e:
+            print(e)
+            res = F
+            
+        class Response(object):
+            data = {"success": res}
+
+        return Response
+
 
 

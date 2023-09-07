@@ -16,3 +16,6 @@ export const DASHBOARD_URL =
 
 export const ACCESS = import.meta.env.VITE_ACCESS;
 export const REFRESH = import.meta.env.VITE_ACCESS;
+export const IPINFO_API = import.meta.env.VITE_IPINFO_API;
+export const SK = import.meta.env.VITE_SECRET_KEY;
+export const SECURE = import.meta.env.VITE_SECURE;

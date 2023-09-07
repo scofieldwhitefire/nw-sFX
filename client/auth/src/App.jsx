@@ -1,8 +1,13 @@
-import { useState, Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
+
+// ["ERR_BAD_OPTION_VALUE","ERR_BAD_OPTION","ECONNABORTED","ETIMEDOUT","ERR_NETWORK","ERR_FR_TOO_MANY_REDIRECTS","ERR_DEPRECATED","ERR_BAD_RESPONSE","ERR_BAD_REQUEST","ERR_CANCELED","ERR_NOT_SUPPORT","ERR_INVALID_URL"]
 
 import AuthLayout from "./components/templates/layouts/AuthLayout";
 import Loader from "./components/molecule/Loader";
+
+import EmailVerify from "./pages/EmailVerify";
+import EmailVerifyPass from "./pages/EmailVerifyPass";
 
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
@@ -62,6 +67,18 @@ function App() {
               <Suspense fallback={<Loader />}>
                 <Confirmed />
               </Suspense>
+            }
+          />
+          <Route
+            path="/verify/:uuid/:token"
+            element={
+              <EmailVerify />
+            }
+          />
+          <Route
+            path="/verify/:uuid/:token/:status"
+            element={
+              <EmailVerifyPass />
             }
           />
         </Route>

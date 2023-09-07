@@ -27,6 +27,6 @@ app.use(`/api/${API_VERSION}`, routes);
 
 app.listen(PORT, () => {
   console.log(
-    `Gateway server ${process.env.SERVER_ID} is active and running on PORT=${PORT}`
+    `${process.env.SERVER_NAME} server ${process.env.SERVER_ID} is active and running on PORT=${PORT}`
   );
 });
