@@ -238,6 +238,10 @@ router.post("/login", async (req, res) => {
               { expiresIn: "5d" }
             );
 
+            // check session and deactivate last one
+            // const ss = await Session.find({ user: user._id });
+            // console.log(ss);
+
             // create active session for user
             const expires = DT().plus({ days: 5 });
             const session = await new Session({
@@ -339,11 +343,12 @@ router.post("/login", async (req, res) => {
               sysOs: oSys,
               browser: bDetail,
             };
-
-            const yy = await axios.post(`${urls.ps1}v1/recent-activity`, iData);
+            
+            // create activity
+            await axios.post(`${urls.ps1}v1/recent-activity`, iData);
 
             // send notification
-            // Mailer("loginNotification", jData);
+            Mailer("loginNotification", jData);
             const fl = FL.findOne({ user });
             fl && fl.deleteOne();
 
